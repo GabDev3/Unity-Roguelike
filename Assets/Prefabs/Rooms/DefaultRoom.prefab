@@ -25953,7 +25953,7 @@ MonoBehaviour:
   spawnType: 3
   spawnRadius: 0
   singleUse: 1
-  priority: 0
+  priority: 4
   isUsed: 0
 --- !u!1 &8549770884008938787
 GameObject:

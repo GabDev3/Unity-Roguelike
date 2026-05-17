@@ -170,16 +170,26 @@ namespace Dungeon
             
             foreach (var tilemap in tilemaps)
             {
-                // Get the parent that represents the room
+                // Go up the hierarchy to find the room root
                 Transform roomTransform = tilemap.transform.parent;
+                
+                // Usually Edgar puts Tilemaps under a "Tilemaps" object, so the room is its parent
+                if (roomTransform != null && (roomTransform.name.Contains("Tilemap") || roomTransform.name.Contains("Grid")))
+                {
+                    roomTransform = roomTransform.parent;
+                }
+                
+                // Another safeguard: if the parent is "Rooms", then roomTransform is the room itself
+                while (roomTransform != null && roomTransform.parent != null && roomTransform.parent.name != "Rooms" && roomTransform.parent != levelRoot.transform && !roomTransform.name.Contains("Room"))
+                {
+                    if (roomTransform.parent.name == "Generated Level" || roomTransform.parent.name == "Rooms")
+                        break;
+                    roomTransform = roomTransform.parent;
+                }
                 
                 if (roomTransform != null && !rooms.Contains(roomTransform.gameObject))
                 {
-                    // Check if this is a room (not just a tilemap layer)
-                    if (roomTransform.GetComponentsInChildren<UnityEngine.Tilemaps.Tilemap>().Length > 0)
-                    {
-                        rooms.Add(roomTransform.gameObject);
-                    }
+                    rooms.Add(roomTransform.gameObject);
                 }
             }
             
@@ -202,92 +212,95 @@ namespace Dungeon
         private void SpawnContentInRoom(GameObject room, bool isStartRoom)
         {
             Debug.Log($"Spawning content in room: {room.name} (Start room: {isStartRoom})");
-            
+
+            // Collect all available spawn points in the room (including inactive ones just in case)
+            var spawnPoints = room.GetComponentsInChildren<SpawnPoint>(true).ToList();
+
             // Calculate room bounds
             Bounds roomBounds = CalculateRoomBounds(room);
-            
+
             if (roomBounds.size == Vector3.zero)
             {
                 Debug.LogWarning($"Could not calculate bounds for room: {room.name}");
                 return;
             }
-            
+
             // Spawn player in start room
             if (isStartRoom && !hasSpawnedPlayer)
             {
-                SpawnPlayer(roomBounds.center);
+                SpawnPlayer(room, roomBounds, spawnPoints);
                 hasSpawnedPlayer = true;
-                
-                SpawnAllItemsExplicitly(room, roomBounds);
-                
+
+                SpawnAllItemsExplicitly(room, roomBounds, spawnPoints);
+
                 // Spawn fewer enemies in start room
                 if (startRoomContent != null)
                 {
-                    SpawnFromContentData(room, roomBounds, startRoomContent);
+                    SpawnFromContentData(room, roomBounds, startRoomContent, spawnPoints);
                     return;
                 }
             }
-            
+
             // Spawn using content data if available
             if (defaultRoomContent != null)
             {
-                SpawnFromContentData(room, roomBounds, defaultRoomContent);
+                SpawnFromContentData(room, roomBounds, defaultRoomContent, spawnPoints);
                 return;
             }
-            
+
             // Fallback: spawn using direct prefab lists
-            SpawnEnemies(room, roomBounds, isStartRoom);
-            SpawnItems(room, roomBounds);
-            SpawnInteractables(room, roomBounds);
+            SpawnEnemies(room, roomBounds, isStartRoom, spawnPoints);
+            SpawnItems(room, roomBounds, spawnPoints);
+            SpawnInteractables(room, roomBounds, spawnPoints);
         }
-        
-        private void SpawnFromContentData(GameObject room, Bounds roomBounds, RoomContentData contentData)
+
+        private void SpawnFromContentData(GameObject room, Bounds roomBounds, RoomContentData contentData, List<SpawnPoint> spawnPoints)
         {
             // Check spawn chance
             if (random.NextDouble() > contentData.spawnChance)
                 return;
-            
+
             // Spawn enemies
             int enemyCount = random.Next(contentData.enemyCountRange.x, contentData.enemyCountRange.y + 1);
             for (int i = 0; i < enemyCount; i++)
             {
-                SpawnRandomFromList(room, roomBounds, contentData.enemies);
+                SpawnRandomFromList(room, roomBounds, contentData.enemies, SpawnPointType.Enemy, spawnPoints);
             }
-            
+
             // Spawn items
             int itemCount = random.Next(contentData.itemCountRange.x, contentData.itemCountRange.y + 1);
             for (int i = 0; i < itemCount; i++)
             {
-                SpawnRandomFromList(room, roomBounds, contentData.items);
+                SpawnRandomFromList(room, roomBounds, contentData.items, SpawnPointType.Item, spawnPoints);
             }
-            
+
             // Spawn interactables
             int interactableCount = random.Next(contentData.interactableCountRange.x, contentData.interactableCountRange.y + 1);
             for (int i = 0; i < interactableCount; i++)
             {
-                SpawnRandomFromList(room, roomBounds, contentData.interactables);
+                SpawnRandomFromList(room, roomBounds, contentData.interactables, SpawnPointType.Interactable, spawnPoints);
             }
-            
+
             // Spawn obstacles
             int obstacleCount = random.Next(contentData.obstacleCountRange.x, contentData.obstacleCountRange.y + 1);
             for (int i = 0; i < obstacleCount; i++)
             {
-                SpawnRandomFromList(room, roomBounds, contentData.obstacles);
+                SpawnRandomFromList(room, roomBounds, contentData.obstacles, SpawnPointType.Obstacle, spawnPoints);
             }
         }
-        
-        private void SpawnRandomFromList(GameObject room, Bounds roomBounds, List<SpawnableObject> objects)
+
+        private void SpawnRandomFromList(GameObject room, Bounds roomBounds, List<SpawnableObject> objects, SpawnPointType type, List<SpawnPoint> spawnPoints)
         {
             if (objects == null || objects.Count == 0)
                 return;
-            
+
             // Select weighted random
             int totalWeight = objects.Sum(o => o.weight);
             int randomValue = random.Next(0, totalWeight);
-            
+
             int currentWeight = 0;
             SpawnableObject selected = null;
-            
+
             foreach (var obj in objects)
             {
                 currentWeight += obj.weight;
@@ -297,89 +310,90 @@ namespace Dungeon
                     break;
                 }
             }
-            
+
             if (selected?.prefab != null)
             {
-                Vector3 spawnPos = GetRandomPositionInBounds(roomBounds);
+                Vector3 spawnPos = GetSpawnPosition(roomBounds, type, spawnPoints);
                 Instantiate(selected.prefab, spawnPos, Quaternion.identity, room.transform);
             }
         }
-        
-        private void SpawnEnemies(GameObject room, Bounds roomBounds, bool isStartRoom)
+
+        private void SpawnEnemies(GameObject room, Bounds roomBounds, bool isStartRoom, List<SpawnPoint> spawnPoints)
         {
             if (enemyPrefabs.Count == 0)
                 return;
-            
+
             int count = isStartRoom ? 0 : random.Next(enemiesPerRoom.x, enemiesPerRoom.y + 1);
-            
+
             for (int i = 0; i < count; i++)
             {
                 int prefabIndex = random.Next(0, enemyPrefabs.Count);
-                Vector3 spawnPos = GetRandomPositionInBounds(roomBounds);
-                
+                Vector3 spawnPos = GetSpawnPosition(roomBounds, SpawnPointType.Enemy, spawnPoints);
+
                 Instantiate(enemyPrefabs[prefabIndex], spawnPos, Quaternion.identity, room.transform);
             }
         }
-        
-        private void SpawnItems(GameObject room, Bounds roomBounds)
+
+        private void SpawnItems(GameObject room, Bounds roomBounds, List<SpawnPoint> spawnPoints)
         {
             if (itemPrefabs.Count == 0)
                 return;
-            
+
             int count = random.Next(itemsPerRoom.x, itemsPerRoom.y + 1);
-            
+
             for (int i = 0; i < count; i++)
             {
                 int prefabIndex = random.Next(0, itemPrefabs.Count);
-                Vector3 spawnPos = GetRandomPositionInBounds(roomBounds);
-                
+                Vector3 spawnPos = GetSpawnPosition(roomBounds, SpawnPointType.Item, spawnPoints);
+
                 Instantiate(itemPrefabs[prefabIndex], spawnPos, Quaternion.identity, room.transform);
             }
         }
-        
-        private void SpawnInteractables(GameObject room, Bounds roomBounds)
+
+        private void SpawnInteractables(GameObject room, Bounds roomBounds, List<SpawnPoint> spawnPoints)
         {
             if (interactablePrefabs.Count == 0)
                 return;
-            
+
             int count = random.Next(interactablesPerRoom.x, interactablesPerRoom.y + 1);
-            
+
             for (int i = 0; i < count; i++)
             {
                 int prefabIndex = random.Next(0, interactablePrefabs.Count);
-                Vector3 spawnPos = GetRandomPositionInBounds(roomBounds);
-                
+                Vector3 spawnPos = GetSpawnPosition(roomBounds, SpawnPointType.Interactable, spawnPoints);
+
                 Instantiate(interactablePrefabs[prefabIndex], spawnPos, Quaternion.identity, room.transform);
             }
         }
-        
-        private void SpawnAllItemsExplicitly(GameObject room, Bounds roomBounds)
+
+        private void SpawnAllItemsExplicitly(GameObject room, Bounds roomBounds, List<SpawnPoint> spawnPoints)
         {
             if (itemPrefabs == null || itemPrefabs.Count == 0)
                 return;
-            
+
             foreach (var prefab in itemPrefabs)
             {
                 if (prefab != null)
                 {
-                    Vector3 spawnPos = GetRandomPositionInBounds(roomBounds);
+                    Vector3 spawnPos = GetSpawnPosition(roomBounds, SpawnPointType.Item, spawnPoints);
                     Instantiate(prefab, spawnPos, Quaternion.identity, room.transform);
                 }
             }
         }
-        
-        private void SpawnPlayer(Vector3 position)
+
+        private void SpawnPlayer(GameObject room, Bounds roomBounds, List<SpawnPoint> spawnPoints)
         {
+            Vector3 position = GetSpawnPosition(roomBounds, SpawnPointType.PlayerSpawn, spawnPoints);
             // Try to find existing player first
             GameObject existingPlayer = GameObject.FindGameObjectWithTag("Player");
-            
+
             if (existingPlayer != null)
             {
                 existingPlayer.transform.position = position;
                 Debug.Log($"Moved existing player to {position}");
                 return;
             }
-            
+
             // Spawn new player
             if (playerPrefab != null)
             {
@@ -391,7 +405,7 @@ namespace Dungeon
                 Debug.LogWarning("SimpleRoomContentSpawner: No player prefab assigned!");
             }
         }
-        
+
         private Bounds CalculateRoomBounds(GameObject room)
         {
             var tilemaps = room.GetComponentsInChildren<UnityEngine.Tilemaps.Tilemap>();
@@ -428,13 +442,29 @@ namespace Dungeon
             return bounds;
         }
         
+        private Vector3 GetSpawnPosition(Bounds bounds, SpawnPointType type, List<SpawnPoint> spawnPoints)
+        {
+            var validPoints = spawnPoints.Where(p => (!p.singleUse || !p.isUsed) && (p.spawnType == type || p.spawnType == SpawnPointType.Any)).ToList();
+            if (validPoints.Any())
+            {
+                validPoints.Sort((a, b) => b.priority.CompareTo(a.priority));
+                var topPriority = validPoints[0].priority;
+                var candidates = validPoints.Where(p => p.priority == topPriority).ToList();
+                var selected = candidates[random.Next(candidates.Count)];
+                selected.isUsed = true;
+                return selected.GetRandomSpawnPosition();
+            }
+
+            return GetRandomPositionInBounds(bounds);
+        }
+
         private Vector3 GetRandomPositionInBounds(Bounds bounds)
         {
             float padding = 1.5f; // Keep away from walls
-            
+
             float x = (float)(random.NextDouble() * (bounds.size.x - padding * 2) + bounds.min.x + padding);
             float y = (float)(random.NextDouble() * (bounds.size.y - padding * 2) + bounds.min.y + padding);
-            
+
             return new Vector3(x, y, 0);
         }
     }
