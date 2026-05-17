@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7776521293607811793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5831722896068378427}
+  - component: {fileID: 3851584097755340953}
+  - component: {fileID: 4824853746163369162}
+  - component: {fileID: 7238095144602836066}
+  - component: {fileID: 5630722503542335874}
+  m_Layer: 0
+  m_Name: DungeonGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5831722896068378427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776521293607811793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.05925627}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3851584097755340953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776521293607811793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11725bdbb93631241b38951f78cae60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4
+  EnableDiagnostics: 0
+  FixedLevelGraphConfig:
+    LevelGraph: {fileID: 11400000, guid: 43c7ff0b60d7e91428ba72853e027577, type: 2}
+    UseCorridors: 0
+  GeneratorConfig:
+    RootGameObject: {fileID: 0}
+    Timeout: 10000
+    RepeatModeOverride: 0
+    MinimumRoomDistance: 1
+    RoomTemplatePrefabMode: 0
+  PostProcessConfig:
+    InitializeSharedTilemaps: 1
+    TilemapLayersStructure: 0
+    TilemapLayersHandler: {fileID: 0}
+    TilemapLayersExample: {fileID: 0}
+    TilemapMaterial: {fileID: 0}
+    CopyTilesToSharedTilemaps: 1
+    CenterGrid: 1
+    DisableRoomTemplatesRenderers: 1
+    DisableRoomTemplatesColliders: 1
+    AnalyzeLevelStructure: 1
+  CustomPostProcessTasks: []
+  OtherConfig:
+    UseRandomSeed: 1
+    RandomGeneratorSeed: 0
+    GenerateOnStart: 1
+  AdvancedConfig:
+    ThrowExceptionsImmediately: 0
+  UseRandomSeed: 1
+  RandomGeneratorSeed: 0
+  GenerateOn: 2
+  ThrowExceptionsImmediately: 0
+  DisableCustomPostProcessing: 0
+--- !u!114 &4824853746163369162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776521293607811793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e9edc8533840f1bebbe1697f07b88d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultRoomContent: {fileID: 11400000, guid: c0a61624b6dfb7d4dad3cbee5a31e6a1, type: 2}
+  startRoomContent: {fileID: 11400000, guid: a3bad308358644b45b69be77ae9fd016, type: 2}
+  playerPrefab: {fileID: 3971767414421841722, guid: 1ee40791bbe5a2a42a11a4bdf060c472, type: 3}
+  roomTag: Room
+  floorLayerName: Floor
+  spawnDelay: 0.5
+  enemiesPerRoom: {x: 1, y: 3}
+  itemsPerRoom: {x: 2, y: 2}
+  interactablesPerRoom: {x: 0, y: 1}
+  enemyPrefabs:
+  - {fileID: 2842574166160857728, guid: 90695ef2c584e6f43941bfa358e23989, type: 3}
+  - {fileID: 7024800003709202114, guid: a3ac4762b620d114ba91c86ab68d1647, type: 3}
+  itemPrefabs:
+  - {fileID: 3304440025522641362, guid: 469e7643a5701ab4ebb3d413b558fbe5, type: 3}
+  - {fileID: 26861877838277248, guid: e1f7717cc81826b4083af92842b69e67, type: 3}
+  - {fileID: 1216838687168349837, guid: 7ffd467421d0a774aadabe6e4feeb54c, type: 3}
+  interactablePrefabs:
+  - {fileID: 5230579175684593860, guid: 6e65a355732d8834690d86334f2fee03, type: 3}
+--- !u!114 &7238095144602836066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776521293607811793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577c59dbc9c94bf4a7aee7627dc1583c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonGenerator: {fileID: 3851584097755340953}
+  useGameManagerSeed: 1
+  generateOnStart: 1
+--- !u!114 &5630722503542335874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776521293607811793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6989be78db247a797af19ea43070f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorPrefab: {fileID: 8329561106874618070, guid: 66fbe37e69cca984dbb2a5845c60ec75, type: 3}
+  wallsTilemapName: Walls
+  collideableTilemapName: Collideable
+  removeFromCollideable: 1
+  extraGapSize: 2
+  showDebugInfo: 1
