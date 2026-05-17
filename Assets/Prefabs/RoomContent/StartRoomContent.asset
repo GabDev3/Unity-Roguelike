@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomTypeName: Start Room
   enemies:
-  - prefab: {fileID: 0}
-    weight: 0
-    minCount: 0
-    maxCount: 0
-  enemyCountRange: {x: 0, y: 0}
+  - prefab: {fileID: 595790826322136348, guid: 59dd11127503b0a4c8bc0cf17cd11559, type: 3}
+    weight: 22
+    minCount: 1
+    maxCount: 1
+  enemyCountRange: {x: 1, y: 1}
   items:
   - prefab: {fileID: 26861877838277248, guid: e1f7717cc81826b4083af92842b69e67, type: 3}
     weight: 2

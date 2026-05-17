@@ -91,10 +91,18 @@ namespace Attacker
             {
                 Vector2 targetPos = _currentPath[0];
                 transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-                if (Vector2.Distance(transform.position, targetPos) < 0.1f)
+                
+                // Increased the acceptance radius heavily (0.3f instead of 0.1f) 
+                // to prevent catching on polygon corners while pathing
+                if (Vector2.Distance(transform.position, targetPos) < 0.3f)
                 {
                     _currentPath.RemoveAt(0);
                 }
+            }
+            else
+            {
+                // Fallback: If no path is found (e.g. out of algorithm range), keep moving directly towards the player so they don't stop chasing!
+                transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, moveSpeed * Time.deltaTime);
             }
         }
 
@@ -130,5 +138,16 @@ namespace Attacker
                 Shoot(target.transform.position - gameObject.transform.position, targetLayers);
             }
         }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (currentState == AIState.PATROL)
+            {
+                // If patrolling and we hit a wall, pick a new random direction immediately
+                _patrolDirection = Random.insideUnitCircle.normalized; 
+            }
+        }
+
+        // Removed OnCollisionStay2D to fix severe lag
     }
 }

@@ -1,0 +1,152 @@
+﻿[
+  {
+    "level": 1,
+    "armor": {
+      "value": 5,
+      "price": 40
+    },
+    "damage": {
+      "value": 5,
+      "price": 60
+    },
+    "health": {
+      "value": 10,
+      "price": 50
+    }
+  },
+  {
+    "level": 2,
+    "armor": {
+      "value": 10,
+      "price": 70
+    },
+    "damage": {
+      "value": 10,
+      "price": 90
+    },
+    "health": {
+      "value": 15,
+      "price": 80
+    }
+  },
+  {
+    "level": 3,
+    "armor": {
+      "value": 14,
+      "price": 96
+    },
+    "damage": {
+      "value": 14,
+      "price": 116
+    },
+    "health": {
+      "value": 19,
+      "price": 106
+    }
+  },
+  {
+    "level": 4,
+    "armor": {
+      "value": 17,
+      "price": 118
+    },
+    "damage": {
+      "value": 17,
+      "price": 138
+    },
+    "health": {
+      "value": 22,
+      "price": 128
+    }
+  },
+  {
+    "level": 5,
+    "armor": {
+      "value": 20,
+      "price": 136
+    },
+    "damage": {
+      "value": 20,
+      "price": 156
+    },
+    "health": {
+      "value": 25,
+      "price": 146
+    }
+  },
+  {
+    "level": 6,
+    "armor": {
+      "value": 22,
+      "price": 151
+    },
+    "damage": {
+      "value": 22,
+      "price": 171
+    },
+    "health": {
+      "value": 27,
+      "price": 161
+    }
+  },
+  {
+    "level": 7,
+    "armor": {
+      "value": 24,
+      "price": 163
+    },
+    "damage": {
+      "value": 24,
+      "price": 183
+    },
+    "health": {
+      "value": 29,
+      "price": 173
+    }
+  },
+  {
+    "level": 8,
+    "armor": {
+      "value": 25,
+      "price": 172
+    },
+    "damage": {
+      "value": 25,
+      "price": 192
+    },
+    "health": {
+      "value": 30,
+      "price": 182
+    }
+  },
+  {
+    "level": 9,
+    "armor": {
+      "value": 26,
+      "price": 178
+    },
+    "damage": {
+      "value": 26,
+      "price": 198
+    },
+    "health": {
+      "value": 31,
+      "price": 188
+    }
+  },
+  {
+    "level": 10,
+    "armor": {
+      "value": 27,
+      "price": 182
+    },
+    "damage": {
+      "value": 27,
+      "price": 202
+    },
+    "health": {
+      "value": 32,
+      "price": 192
+    }
+  }
+]

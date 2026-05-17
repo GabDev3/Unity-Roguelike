@@ -59,6 +59,20 @@ namespace Controllers
                 hud.UpdateMoneyDisplay(CurrentMoney);
             }
         }
+        
+        public bool SpendMoney(int amount)
+        {
+            if (CurrentMoney >= amount)
+            {
+                CurrentMoney -= amount;
+                if (hud)
+                {
+                    hud.UpdateMoneyDisplay(CurrentMoney);
+                }
+                return true;
+            }
+            return false;
+        }
 
         public void TakeDamage(int damage)
         {
@@ -75,6 +89,16 @@ namespace Controllers
         public void TogglePickItemPrompt(bool isVisible, string displayedText="default")
         {
             hud.TogglePickItemText(isVisible, displayedText);
+        }
+        
+        public void SetBaseArmor(int amount)
+        {
+            CurrentArmorDefense = amount;
+            Resistance = CurrentArmorDefense;
+            if (hud)
+            {
+                hud.UpdateArmorStats(CurrentArmorDefense);
+            }
         }
     }
 }

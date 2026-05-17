@@ -91,6 +91,16 @@ public class Health : MonoBehaviour
             StartCoroutine(FlashRed());
         }
     }
+    
+    public void SetMaxHealth(int newMax)
+    {
+        int diff = newMax - MaxHealth;
+        MaxHealth = newMax;
+        if (diff > 0)
+        {
+            CurrentHealth += diff;
+        }
+    }
 
     public int GetHealthPoints()
     {

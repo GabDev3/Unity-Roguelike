@@ -163,10 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootTable:
   - {fileID: 3304440025522641362, guid: 469e7643a5701ab4ebb3d413b558fbe5, type: 3}
-  - {fileID: 1216838687168349837, guid: 7ffd467421d0a774aadabe6e4feeb54c, type: 3}
-  - {fileID: 3304440025522641362, guid: 469e7643a5701ab4ebb3d413b558fbe5, type: 3}
-  - {fileID: 3304440025522641362, guid: 469e7643a5701ab4ebb3d413b558fbe5, type: 3}
-  - {fileID: 26861877838277248, guid: e1f7717cc81826b4083af92842b69e67, type: 3}
   animator: {fileID: 4580531656116239151}
 --- !u!61 &1354677374535778706
 BoxCollider2D:

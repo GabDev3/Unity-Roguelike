@@ -453,6 +453,8 @@
 "Assets/Scripts/Interaction/InteractibleItem.cs"
 "Assets/Scripts/Interaction/MeleeWeapon.cs"
 "Assets/Scripts/Interaction/MoneyPickup.cs"
+"Assets/Scripts/Interaction/UpgraderData.cs"
+"Assets/Scripts/Interaction/UpgraderNPC.cs"
 "Assets/Scripts/Interfaces/IAttacker.cs"
 "Assets/Scripts/Interfaces/IDamageable.cs"
 "Assets/Scripts/Movement/PlayerMovement.cs"
@@ -463,6 +465,7 @@
 "Assets/Scripts/UI/MainMenuManager.cs"
 "Assets/Scripts/UI/PauseMenuManager.cs"
 "Assets/Scripts/UI/PlayerHud.cs"
+"Assets/Scripts/UI/UpgraderMenuUI.cs"
 "Assets/Scripts/Weapons/SpellData.cs"
 "Assets/Scripts/Weapons/SpellProjectile.cs"
 -langversion:9.0
