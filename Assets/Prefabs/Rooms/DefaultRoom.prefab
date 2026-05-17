@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnType: 2
-  spawnRadius: 1.05
+  spawnRadius: 0.465
   singleUse: 1
   priority: 0
   isUsed: 0
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 686702721756511428}
   - component: {fileID: 6108371377130662644}
   - component: {fileID: 6807731254570884502}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25932,7 +25932,7 @@ Transform:
   m_GameObject: {fileID: 7983309621064227681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.55, y: -2.38, z: 0}
+  m_LocalPosition: {x: 10.45, y: -0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25951,7 +25951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnType: 3
-  spawnRadius: 0.57
+  spawnRadius: 0
   singleUse: 1
   priority: 0
   isUsed: 0

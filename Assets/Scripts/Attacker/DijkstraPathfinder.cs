@@ -6,7 +6,7 @@ namespace App
 {
     public static class DijkstraPathfinder
     {
-        private const float GRID_SIZE = 0.5f;
+        private const float GRID_SIZE = 0.25f;
 
         public static List<Vector2> FindPath(Vector2 startPos, Vector2 targetPos, LayerMask obstacleLayer)
         {
@@ -77,11 +77,19 @@ namespace App
                 current + new Vector2(GRID_SIZE, 0),
                 current + new Vector2(-GRID_SIZE, 0),
                 current + new Vector2(0, GRID_SIZE),
-                current + new Vector2(0, -GRID_SIZE)
+                current + new Vector2(0, -GRID_SIZE),
+                
+                // Adding diagonals can also help smooth out pathing
+                current + new Vector2(GRID_SIZE, GRID_SIZE),
+                current + new Vector2(-GRID_SIZE, GRID_SIZE),
+                current + new Vector2(GRID_SIZE, -GRID_SIZE),
+                current + new Vector2(-GRID_SIZE, -GRID_SIZE)
             };
 
-            return neighbors.Where(n => !Physics2D.OverlapBox(n, new Vector2(GRID_SIZE * 0.8f, GRID_SIZE * 0.8f), 0, obstacleLayer)).ToList();
+            // Using a larger overlap box to ensure clearance for the agent's collider
+            Vector2 checkSize = new Vector2(GRID_SIZE, GRID_SIZE);
+            
+            return neighbors.Where(n => !Physics2D.OverlapBox(n, checkSize, 0, obstacleLayer)).ToList();
         }
     }
 }
-
