@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Dungeon\RoomContentData.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenuManager.cs" />
+    <Compile Include="Assets\Scripts\Attacker\DijkstraPathfinder.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUIBuilder.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Dungeon\SimpleDoorSpawner.cs" />

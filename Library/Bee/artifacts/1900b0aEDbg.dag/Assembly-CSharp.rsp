@@ -433,6 +433,7 @@
 "Assets/Scripts/Attacker/BaseAttacker.cs"
 "Assets/Scripts/Attacker/BaseMeleeAttacker.cs"
 "Assets/Scripts/Attacker/BaseRangeAttacker.cs"
+"Assets/Scripts/Attacker/DijkstraPathfinder.cs"
 "Assets/Scripts/Attacker/UserMeleeAttacker.cs"
 "Assets/Scripts/Attacker/UserRangeAttacker.cs"
 "Assets/Scripts/CharacterStats/Health.cs"

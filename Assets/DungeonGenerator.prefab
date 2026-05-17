@@ -57,7 +57,7 @@ MonoBehaviour:
     Timeout: 10000
     RepeatModeOverride: 0
     MinimumRoomDistance: 1
-    RoomTemplatePrefabMode: 0
+    RoomTemplatePrefabMode: 1
   PostProcessConfig:
     InitializeSharedTilemaps: 1
     TilemapLayersStructure: 0

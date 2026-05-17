@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace Attacker
 {
+    public enum AIState { PATROL, CHASE, ATTACK }
+
     public abstract class BaseAttacker : MonoBehaviour
     {
         public int Damage;
@@ -11,6 +13,11 @@ namespace Attacker
         private float _nextAttackTime = 0f;
         public float attackRadius;
 
+        public AIState currentState = AIState.PATROL;
+        public CircleCollider2D rangeOfSight;
+
+        [Tooltip("Speed matrix for movement")]
+        public float moveSpeed = 2f;
 
         [Tooltip("Which layers should be targeted?")]
         public LayerMask targetLayers;

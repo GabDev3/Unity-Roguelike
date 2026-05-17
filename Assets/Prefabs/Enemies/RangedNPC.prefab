@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 4996037950651906403}
   - component: {fileID: 6377330612182904095}
   - component: {fileID: 6064494366356759481}
+  - component: {fileID: 4972339028722070130}
   m_Layer: 6
   m_Name: RangedNPC
   m_TagString: Untagged
@@ -402,9 +403,51 @@ MonoBehaviour:
   Damage: 2
   AttackCooldown: 3
   attackRadius: 4
+  currentState: 0
+  rangeOfSight: {fileID: 4972339028722070130}
+  moveSpeed: 2
   targetLayers:
     serializedVersion: 2
     m_Bits: 128
   currentSpell: {fileID: 11400000, guid: 6f4acb93fdba78d45a1b61dfe55293f3, type: 2}
   firePoint: {fileID: 2565715163248125531}
   timeToAttack: 2
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!58 &4972339028722070130
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842574166160857728}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.92}
+  m_Radius: 4.15

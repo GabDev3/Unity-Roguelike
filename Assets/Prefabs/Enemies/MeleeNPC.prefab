@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 1620203788760297082}
   - component: {fileID: 9039299467312129523}
   - component: {fileID: 5906723589739921140}
+  - component: {fileID: 3961769721050417594}
   m_Layer: 6
   m_Name: MeleeNPC
   m_TagString: Untagged
@@ -314,8 +315,50 @@ MonoBehaviour:
   Damage: 5
   AttackCooldown: 2
   attackRadius: 0.9
+  currentState: 0
+  rangeOfSight: {fileID: 3961769721050417594}
+  moveSpeed: 2
   targetLayers:
     serializedVersion: 2
     m_Bits: 128
   meleeWeaponPrefab: {fileID: 0}
   timeToAttack: 1.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!58 &3961769721050417594
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024800003709202114}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.055000007, y: 0.995}
+  m_Radius: 3.83
