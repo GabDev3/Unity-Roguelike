@@ -129,6 +129,7 @@
 -define:TEXTCORE_TEXT_ENGINE_1_5_OR_NEWER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f1/Editor/Data/Managed/UnityEngine/UnityEditor.AccessibilityModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f1/Editor/Data/Managed/UnityEngine/UnityEditor.AdaptivePerformanceModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f1/Editor/Data/Managed/UnityEngine/UnityEditor.BuildProfileModule.dll"
@@ -374,9 +375,12 @@
 -r:"Library/PackageCache/com.unity.ext.nunit@031a54704bff/net40/unity-custom/nunit.framework.dll"
 -r:"Library/PackageCache/com.unity.nuget.mono-cecil@d6f9955a5d5f/Mono.Cecil.dll"
 -r:"Library/PackageCache/com.unity.visualscripting@6279e2b7c485/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/AstarPathfindingProject.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/AstarPathfindingProjectEditor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.Examples.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/PackageToolsEditor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/PsdPlugin.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.2D.Animation.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.2D.Animation.Runtime.ref.dll"
@@ -433,7 +437,6 @@
 "Assets/Scripts/Attacker/BaseAttacker.cs"
 "Assets/Scripts/Attacker/BaseMeleeAttacker.cs"
 "Assets/Scripts/Attacker/BaseRangeAttacker.cs"
-"Assets/Scripts/Attacker/DijkstraPathfinder.cs"
 "Assets/Scripts/Attacker/UserMeleeAttacker.cs"
 "Assets/Scripts/Attacker/UserRangeAttacker.cs"
 "Assets/Scripts/CharacterStats/Health.cs"
@@ -457,6 +460,8 @@
 "Assets/Scripts/Interaction/UpgraderNPC.cs"
 "Assets/Scripts/Interfaces/IAttacker.cs"
 "Assets/Scripts/Interfaces/IDamageable.cs"
+"Assets/Scripts/Movement/AstarMover.cs"
+"Assets/Scripts/Movement/AstarRuntimeScanner.cs"
 "Assets/Scripts/Movement/PlayerMovement.cs"
 "Assets/Scripts/UI/GameOverManager.cs"
 "Assets/Scripts/UI/InGameUIBuilder.cs"

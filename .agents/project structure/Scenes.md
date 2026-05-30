@@ -1,0 +1,1 @@
+﻿Scene gameobjecs -> dictate spawn - has edgar and gamemanager scripts on it, controlls ui as well

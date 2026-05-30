@@ -830,7 +830,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.67, y: 0.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.64, y: 0.64, z: 0.64}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8327017309916942462}
@@ -970,6 +970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 100
   MaxHealth: 100
+  notifyGameManagerOnDeath: 1
 --- !u!114 &8507160206348394959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +986,9 @@ MonoBehaviour:
   Damage: 15
   AttackCooldown: 1
   attackRadius: 0.9
+  currentState: 0
+  rangeOfSight: {fileID: 0}
+  moveSpeed: 2
   targetLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -1005,6 +1009,9 @@ MonoBehaviour:
   Damage: 10
   AttackCooldown: 0
   attackRadius: 0
+  currentState: 0
+  rangeOfSight: {fileID: 0}
+  moveSpeed: 2
   targetLayers:
     serializedVersion: 2
     m_Bits: 64

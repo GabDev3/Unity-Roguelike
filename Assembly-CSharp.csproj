@@ -49,6 +49,7 @@
     <Compile Include="Assets\Scripts\Interaction\InteractibleItem.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IAttacker.cs" />
     <Compile Include="Assets\Scripts\Weapons\SpellProjectile.cs" />
+    <Compile Include="Assets\Scripts\Movement\AstarMover.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Door.cs" />
     <Compile Include="Assets\Scripts\Dungeon\SpawnPoint.cs" />
     <Compile Include="Assets\Scripts\Attacker\AIMeleeAttacker.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Assets\Scripts\Dungeon\RoomContentData.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenuManager.cs" />
-    <Compile Include="Assets\Scripts\Attacker\DijkstraPathfinder.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUIBuilder.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Dungeon\SimpleDoorSpawner.cs" />
@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Interaction\UpgraderData.cs" />
     <Compile Include="Assets\Scripts\Interaction\UpgraderNPC.cs" />
     <Compile Include="Assets\Scripts\Attacker\BaseMeleeAttacker.cs" />
+    <Compile Include="Assets\Scripts\Movement\AstarRuntimeScanner.cs" />
     <Compile Include="Assets\Scripts\Controllers\BaseController.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerHud.cs" />
     <Compile Include="Assets\Scripts\Weapons\SpellData.cs" />
@@ -479,6 +480,9 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\gabi\UnityExplorationGame\Library\PackageCache\com.unity.nuget.mono-cecil@d6f9955a5d5f\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>C:\Users\gabi\UnityExplorationGame\Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.58f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -1001,6 +1005,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{df3d1b06-7e0d-d90f-7960-a7993572af87}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProject.csproj">
+      <Project>{bd46fbf1-9ef0-3668-5580-3629d1f73c1d}</Project>
+      <Name>AstarPathfindingProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{7eff531a-0a2f-5f98-8828-85a3bba54ec2}</Project>
+      <Name>PackageToolsEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

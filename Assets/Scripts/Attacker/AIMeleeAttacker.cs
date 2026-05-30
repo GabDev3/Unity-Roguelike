@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Interfaces;
-using System.Collections.Generic;
+using Movement;
 
 namespace Attacker
 {
@@ -12,14 +12,13 @@ namespace Attacker
         private Vector2 _patrolDirection;
         private float _patrolTimer = 0f;
         private Transform _playerTransform;
-        public LayerMask obstacleLayer;
 
-        private List<Vector2> _currentPath;
-        private float _pathUpdateTimer = 0f;
+        private AstarMover _mover;
 
         void Start()
         {
             _patrolDirection = Random.insideUnitCircle.normalized;
+            _mover = GetComponent<AstarMover>();
         }
 
         void Update()
@@ -78,28 +77,13 @@ namespace Attacker
                 return;
             }
 
-            _pathUpdateTimer -= Time.deltaTime;
-            if (_pathUpdateTimer <= 0f)
+            if (_mover != null)
             {
-                _currentPath = App.DijkstraPathfinder.FindPath(transform.position, _playerTransform.position, obstacleLayer);
-                _pathUpdateTimer = 0.5f;
-            }
-
-            if (_currentPath != null && _currentPath.Count > 0)
-            {
-                Vector2 targetPos = _currentPath[0];
-                transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-                
-                // Increased the acceptance radius heavily (0.3f instead of 0.1f) 
-                // to prevent catching on polygon corners while pathing
-                if (Vector2.Distance(transform.position, targetPos) < 0.3f)
-                {
-                    _currentPath.RemoveAt(0);
-                }
+                _mover.MoveTowards(_playerTransform.position, moveSpeed);
             }
             else
             {
-                // Fallback: If no path is found (e.g. out of algorithm range), keep moving directly towards the player so they don't stop chasing!
+                // No AstarMover attached -> move straight at the player so chasing still works.
                 transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, moveSpeed * Time.deltaTime);
             }
         }
