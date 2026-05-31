@@ -73,7 +73,29 @@ namespace UI
             CreatePauseMenu();
             CreateGameOverScreen();
 
+            // Ensure gameplay systems exist even when SampleScene is played directly
+            EnsureGameSystems();
+
             Debug.Log("In-Game UI built successfully!");
+        }
+
+        private void EnsureGameSystems()
+        {
+            // A GameManager is needed for win/lose state. When launched from the
+            // main menu it persists via DontDestroyOnLoad; when SampleScene is
+            // played directly there is none, so create one here.
+            if (Dungeon.GameManager.Instance == null && FindAnyObjectByType<Dungeon.GameManager>() == null)
+            {
+                var gmObj = new GameObject("GameManager");
+                gmObj.AddComponent<Dungeon.GameManager>();
+            }
+
+            // Combat indicators (hit-range sword icon + attack-cooldown fill circle)
+            if (FindAnyObjectByType<CombatIndicatorUI>() == null)
+            {
+                var indObj = new GameObject("CombatIndicatorUI");
+                indObj.AddComponent<CombatIndicatorUI>();
+            }
         }
 
         private void CreateCanvas()

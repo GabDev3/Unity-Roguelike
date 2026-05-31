@@ -19,22 +19,10 @@ MonoBehaviour:
     minCount: 1
     maxCount: 1
   enemyCountRange: {x: 1, y: 1}
-  items:
-  - prefab: {fileID: 26861877838277248, guid: e1f7717cc81826b4083af92842b69e67, type: 3}
-    weight: 2
-    minCount: 1
-    maxCount: 1
-  - prefab: {fileID: 1216838687168349837, guid: 7ffd467421d0a774aadabe6e4feeb54c, type: 3}
-    weight: 2
-    minCount: 1
-    maxCount: 1
-  itemCountRange: {x: 2, y: 2}
-  interactables:
-  - prefab: {fileID: 5230579175684593860, guid: 6e65a355732d8834690d86334f2fee03, type: 3}
-    weight: 0
-    minCount: 1
-    maxCount: 1
-  interactableCountRange: {x: 1, y: 1}
+  items: []
+  itemCountRange: {x: 0, y: 0}
+  interactables: []
+  interactableCountRange: {x: 0, y: 0}
   obstacles: []
   obstacleCountRange: {x: 0, y: 3}
   spawnChance: 1

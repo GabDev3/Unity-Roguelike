@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\UI\MainMenuBuilder.cs" />
     <Compile Include="Assets\Scripts\Dungeon\GameManager.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverManager.cs" />
+    <Compile Include="Assets\Scripts\UI\CombatIndicatorUI.cs" />
     <Compile Include="Assets\Scripts\Interaction\MeleeWeapon.cs" />
     <Compile Include="Assets\Scripts\Attacker\UserRangeAttacker.cs" />
     <Compile Include="Assets\Scripts\Helpers\AttackRangeTrigger.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\Interaction\UpgraderNPC.cs" />
     <Compile Include="Assets\Scripts\Attacker\BaseMeleeAttacker.cs" />
     <Compile Include="Assets\Scripts\Movement\AstarRuntimeScanner.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BossController.cs" />
     <Compile Include="Assets\Scripts\Controllers\BaseController.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerHud.cs" />
     <Compile Include="Assets\Scripts\Weapons\SpellData.cs" />

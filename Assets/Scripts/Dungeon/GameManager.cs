@@ -20,6 +20,10 @@ namespace Dungeon
         [Tooltip("Name of the game/dungeon scene")]
         public string gameSceneName = "SampleScene";
         
+        [Header("Player Class")]
+        [Tooltip("Class chosen on the main menu; read by the content spawner to pick the player prefab")]
+        public PlayerClass SelectedClass = PlayerClass.Melee;
+
         [Header("Game Settings")]
         [Tooltip("If true, uses random seed. If false, uses fixedSeed")]
         public bool useRandomSeed = true;
@@ -186,6 +190,14 @@ namespace Dungeon
         {
             ChangeState(GameState.GameOver);
         }
+
+        /// <summary>
+        /// Handle the boss being defeated -> player wins.
+        /// </summary>
+        public void OnBossDefeated()
+        {
+            ChangeState(GameState.Victory);
+        }
         
         /// <summary>
         /// Restart the current dungeon with the same seed
@@ -246,6 +258,15 @@ namespace Dungeon
         }
     }
     
+    /// <summary>
+    /// Player class chosen before starting the game.
+    /// </summary>
+    public enum PlayerClass
+    {
+        Melee,
+        Ranged
+    }
+
     /// <summary>
     /// Possible game states
     /// </summary>

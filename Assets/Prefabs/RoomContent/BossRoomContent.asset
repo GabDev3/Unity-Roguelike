@@ -12,21 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1d4c1578eb4294b33463117ffb06aa, type: 3}
   m_Name: BossRoomContent
   m_EditorClassIdentifier: 
-  roomTypeName: Start Room
-  enemies: []
-  enemyCountRange: {x: 0, y: 0}
-  items:
-  - prefab: {fileID: 5230579175684593860, guid: 6e65a355732d8834690d86334f2fee03, type: 3}
-    weight: 0
+  roomTypeName: Boss Room
+  enemies:
+  - prefab: {fileID: 2842574166160857728, guid: 1b2c3d4e5f60718293a4b5c6d7e8f901, type: 3}
+    weight: 7
     minCount: 1
     maxCount: 1
-  itemCountRange: {x: 1, y: 1}
-  interactables:
-  - prefab: {fileID: 5230579175684593860, guid: 6e65a355732d8834690d86334f2fee03, type: 3}
-    weight: 0
-    minCount: 1
-    maxCount: 1
-  interactableCountRange: {x: 1, y: 1}
+  enemyCountRange: {x: 1, y: 1}
+  items: []
+  itemCountRange: {x: 0, y: 0}
+  interactables: []
+  interactableCountRange: {x: 0, y: 0}
   obstacles: []
-  obstacleCountRange: {x: 0, y: 3}
+  obstacleCountRange: {x: 0, y: 0}
   spawnChance: 1

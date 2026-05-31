@@ -17,10 +17,30 @@ namespace Dungeon
         
         [Tooltip("Content for the first/spawn room (usually fewer or no enemies)")]
         public RoomContentData startRoomContent;
-        
+
+        [Tooltip("Extra content variants; a random one (or defaultRoomContent) is picked per normal room for variety")]
+        public List<RoomContentData> roomContentVariants = new List<RoomContentData>();
+
+        [Tooltip("Content used for the boss room (room name contains 'Boss')")]
+        public RoomContentData bossRoomContent;
+
         [Header("Prefab References")]
-        [Tooltip("Player prefab to spawn")]
+        [Tooltip("Player prefab to spawn (fallback / melee)")]
         public GameObject playerPrefab;
+
+        [Tooltip("Melee player prefab (used when GameManager.SelectedClass == Melee)")]
+        public GameObject playerPrefabMelee;
+
+        [Tooltip("Ranged player prefab (used when GameManager.SelectedClass == Ranged)")]
+        public GameObject playerPrefabRanged;
+
+        [Header("Chest")]
+        [Tooltip("Chest prefab spawned with chestSpawnChance in normal rooms")]
+        public GameObject chestPrefab;
+
+        [Tooltip("Probability (0-1) that a normal room contains a chest")]
+        [Range(0f, 1f)]
+        public float chestSpawnChance = 0.2f;
         
         [Header("Settings")]
         [Tooltip("Tag to identify room GameObjects after generation")]
@@ -241,10 +261,19 @@ namespace Dungeon
                 }
             }
 
-            // Spawn using content data if available
-            if (defaultRoomContent != null)
+            // Boss room: use dedicated boss content
+            if (IsBossRoom(room) && bossRoomContent != null)
             {
-                SpawnFromContentData(room, roomBounds, defaultRoomContent, spawnPoints);
+                SpawnFromContentData(room, roomBounds, bossRoomContent, spawnPoints);
+                return;
+            }
+
+            // Normal room: pick a random content variant for variety
+            RoomContentData content = PickRoomContent();
+            if (content != null)
+            {
+                SpawnFromContentData(room, roomBounds, content, spawnPoints);
+                TrySpawnChest(room, roomBounds, spawnPoints);
                 return;
             }
 
@@ -252,6 +281,32 @@ namespace Dungeon
             SpawnEnemies(room, roomBounds, isStartRoom, spawnPoints);
             SpawnItems(room, roomBounds, spawnPoints);
             SpawnInteractables(room, roomBounds, spawnPoints);
+            TrySpawnChest(room, roomBounds, spawnPoints);
+        }
+
+        private bool IsBossRoom(GameObject room)
+        {
+            return room.name.ToLower().Contains("boss");
+        }
+
+        private RoomContentData PickRoomContent()
+        {
+            var pool = new List<RoomContentData>();
+            if (defaultRoomContent != null) pool.Add(defaultRoomContent);
+            if (roomContentVariants != null)
+                pool.AddRange(roomContentVariants.Where(c => c != null));
+
+            if (pool.Count == 0) return null;
+            return pool[random.Next(pool.Count)];
+        }
+
+        private void TrySpawnChest(GameObject room, Bounds roomBounds, List<SpawnPoint> spawnPoints)
+        {
+            if (chestPrefab == null) return;
+            if (random.NextDouble() > chestSpawnChance) return;
+
+            Vector3 pos = GetSpawnPosition(roomBounds, SpawnPointType.Interactable, spawnPoints);
+            Instantiate(chestPrefab, pos, Quaternion.identity, room.transform);
         }
 
         private void SpawnFromContentData(GameObject room, Bounds roomBounds, RoomContentData contentData, List<SpawnPoint> spawnPoints)
@@ -394,10 +449,20 @@ namespace Dungeon
                 return;
             }
 
-            // Spawn new player
-            if (playerPrefab != null)
+            // Pick the prefab matching the chosen class (falls back to playerPrefab)
+            GameObject prefab = playerPrefab;
+            if (GameManager.Instance != null)
             {
-                Instantiate(playerPrefab, position, Quaternion.identity);
+                if (GameManager.Instance.SelectedClass == PlayerClass.Ranged && playerPrefabRanged != null)
+                    prefab = playerPrefabRanged;
+                else if (GameManager.Instance.SelectedClass == PlayerClass.Melee && playerPrefabMelee != null)
+                    prefab = playerPrefabMelee;
+            }
+
+            // Spawn new player
+            if (prefab != null)
+            {
+                Instantiate(prefab, position, Quaternion.identity);
                 Debug.Log($"Spawned player at {position}");
             }
             else

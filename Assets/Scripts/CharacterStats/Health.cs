@@ -13,6 +13,9 @@ public class Health : MonoBehaviour
     [Header("Death Settings")]
     [Tooltip("If true and this is the player, notifies GameManager on death")]
     public bool notifyGameManagerOnDeath = true;
+
+    [Tooltip("If true (the boss), notifies GameManager to show the victory/win screen on death")]
+    public bool notifyVictoryOnDeath = false;
     
     void Start()
     {
@@ -33,6 +36,17 @@ public class Health : MonoBehaviour
     
     private void OnDeath()
     {
+        // Boss death -> player wins
+        if (notifyVictoryOnDeath)
+        {
+            if (Dungeon.GameManager.Instance != null)
+            {
+                Dungeon.GameManager.Instance.OnBossDefeated();
+            }
+            Destroy(gameObject);
+            return;
+        }
+
         // Check if this is the player
         if (notifyGameManagerOnDeath && CompareTag("Player"))
         {

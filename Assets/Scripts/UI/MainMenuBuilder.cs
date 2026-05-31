@@ -61,6 +61,8 @@ namespace UI
             CreateMainMenuPanel();
             CreateSettingsPanel();
             CreateCreditsPanel();
+            CreateClassSelectPanel();
+            CreateControlsPanel();
 
             // Setup MainMenuManager
             SetupMainMenuManager();
@@ -129,11 +131,89 @@ namespace UI
 
             // Buttons
             _menuManager.playButton = CreateButton("PlayButton", container.transform, "PLAY", 50);
+            _menuManager.controlsButton = CreateButton("ControlsButton", container.transform, "CONTROLS", 50);
             _menuManager.settingsButton = CreateButton("SettingsButton", container.transform, "SETTINGS", 50);
             _menuManager.creditsButton = CreateButton("CreditsButton", container.transform, "CREDITS", 50);
             _menuManager.quitButton = CreateButton("QuitButton", container.transform, "QUIT", 50);
 
             _menuManager.mainMenuPanel = _mainMenuPanel;
+        }
+
+        private void CreateClassSelectPanel()
+        {
+            GameObject panel = CreatePanel("ClassSelectPanel", _canvas.transform);
+            panel.SetActive(false);
+
+            GameObject container = CreateUIElement("Container", panel.transform);
+            RectTransform containerRect = container.GetComponent<RectTransform>();
+            containerRect.anchorMin = containerRect.anchorMax = new Vector2(0.5f, 0.5f);
+            containerRect.sizeDelta = new Vector2(500, 420);
+            containerRect.anchoredPosition = Vector2.zero;
+
+            Image panelBg = container.AddComponent<Image>();
+            panelBg.color = panelColor;
+
+            VerticalLayoutGroup layout = container.AddComponent<VerticalLayoutGroup>();
+            layout.childAlignment = TextAnchor.UpperCenter;
+            layout.spacing = 25;
+            layout.childControlWidth = true;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            layout.padding = new RectOffset(40, 40, 30, 30);
+
+            CreateTextElement("ClassTitle", container.transform, "CHOOSE YOUR CLASS", 42, titleColor);
+            CreateSpacer(container.transform, 20);
+
+            _menuManager.meleeButton = CreateButton("MeleeButton", container.transform, "MELEE", 60);
+            _menuManager.rangedButton = CreateButton("RangedButton", container.transform, "RANGED", 60);
+            CreateSpacer(container.transform, 20);
+            _menuManager.backFromClassButton = CreateButton("BackButton", container.transform, "BACK", 50);
+
+            _menuManager.classSelectPanel = panel;
+        }
+
+        private void CreateControlsPanel()
+        {
+            GameObject panel = CreatePanel("ControlsPanel", _canvas.transform);
+            panel.SetActive(false);
+
+            GameObject container = CreateUIElement("Container", panel.transform);
+            RectTransform containerRect = container.GetComponent<RectTransform>();
+            containerRect.anchorMin = containerRect.anchorMax = new Vector2(0.5f, 0.5f);
+            containerRect.sizeDelta = new Vector2(560, 560);
+            containerRect.anchoredPosition = Vector2.zero;
+
+            Image panelBg = container.AddComponent<Image>();
+            panelBg.color = panelColor;
+
+            VerticalLayoutGroup layout = container.AddComponent<VerticalLayoutGroup>();
+            layout.childAlignment = TextAnchor.UpperCenter;
+            layout.spacing = 20;
+            layout.childControlWidth = true;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            layout.padding = new RectOffset(40, 40, 30, 30);
+
+            CreateTextElement("ControlsTitle", container.transform, "CONTROLS", 48, titleColor);
+            CreateSpacer(container.transform, 10);
+
+            string controls =
+                "WASD  -  Move\n\n" +
+                "Left Mouse  -  Melee attack\n\n" +
+                "Space  -  Ranged attack (aim with mouse)\n\n" +
+                "E  -  Pick up / interact\n\n" +
+                "Esc  -  Pause";
+            GameObject text = CreateTextElement("ControlsText", container.transform, controls, 26, textColor);
+            LayoutElement tl = text.AddComponent<LayoutElement>();
+            tl.preferredHeight = 320;
+            text.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+
+            CreateSpacer(container.transform, 10);
+            _menuManager.backFromControlsButton = CreateButton("BackButton", container.transform, "BACK", 50);
+
+            _menuManager.controlsPanel = panel;
         }
 
         private void CreateSettingsPanel()

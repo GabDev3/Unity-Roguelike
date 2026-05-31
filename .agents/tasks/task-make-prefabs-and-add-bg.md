@@ -12,4 +12,15 @@
 #### upgrader npc (already done - dont do nothing here)
 #### NO ENEMIES IN STARTING ROOM
 
-## Step 4.
+## Step 4. UI 
+### Death screen - display "Game Over" text and a button to restart the game, which will reload the scene, or quit
+### Success screen - display "You Win!" text and a button to restart the game, which will reload the scene, or quit
+### Hit range indicator - add small sword icon when player is in range of hitting the enemy. disappear when he is not
+### Hit timing indicator - there is attack speed here implemented. When player launches attack (range or melee - doesnt matter) show a small circle icon that will be filled in as the attack gets ready, and when it is fully filled, player can attack again.
+### main menu - in controls just show controls - no editting there
+### game start - before instantiating a SampleScene add class choosing - user can choose melee or ranged class. Currently, the player is kind of a hybrid - it has 2 scripts on him. Differentiate that - change current Player prefab to 2 prefabs one for melee and second for ranged. just copy the current prefab and remove ranged component and also fireball gameobject from him to get melee. on the crrent one remove melee component and activate ranged script component to get ranged. adjust ranges as well so they won't be astronomical
+
+
+
+# Summary:
+The task list is long, so take your time and think long time if needed - it can even take you up to 10 minutes or more, so I need you to **think carefully, HARD, DEEPLY, with a lot of effort** - I need this done perfectly

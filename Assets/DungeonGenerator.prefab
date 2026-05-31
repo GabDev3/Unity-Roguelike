@@ -95,7 +95,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultRoomContent: {fileID: 11400000, guid: c0a61624b6dfb7d4dad3cbee5a31e6a1, type: 2}
   startRoomContent: {fileID: 11400000, guid: a3bad308358644b45b69be77ae9fd016, type: 2}
+  roomContentVariants:
+  - {fileID: 11400000, guid: 4e5f60718293a4b5c6d7e8f901122334, type: 2}
+  - {fileID: 11400000, guid: 5f60718293a4b5c6d7e8f90112233445, type: 2}
+  - {fileID: 11400000, guid: 60718293a4b5c6d7e8f9011223344556, type: 2}
+  bossRoomContent: {fileID: 11400000, guid: b1d5b9d52b65e4f46b2bf5e47a58186f, type: 2}
   playerPrefab: {fileID: 3971767414421841722, guid: 1ee40791bbe5a2a42a11a4bdf060c472, type: 3}
+  playerPrefabMelee: {fileID: 3971767414421841722, guid: 2c3d4e5f60718293a4b5c6d7e8f90112, type: 3}
+  playerPrefabRanged: {fileID: 3971767414421841722, guid: 3d4e5f60718293a4b5c6d7e8f9011223, type: 3}
+  chestPrefab: {fileID: 5230579175684593860, guid: 6e65a355732d8834690d86334f2fee03, type: 3}
+  chestSpawnChance: 0.2
   roomTag: Room
   floorLayerName: Floor
   spawnDelay: 0.5
@@ -107,7 +116,6 @@ MonoBehaviour:
   - {fileID: 7024800003709202114, guid: a3ac4762b620d114ba91c86ab68d1647, type: 3}
   - {fileID: 595790826322136348, guid: 59dd11127503b0a4c8bc0cf17cd11559, type: 3}
   itemPrefabs:
-  - {fileID: 3304440025522641362, guid: 469e7643a5701ab4ebb3d413b558fbe5, type: 3}
   - {fileID: 26861877838277248, guid: e1f7717cc81826b4083af92842b69e67, type: 3}
   - {fileID: 1216838687168349837, guid: 7ffd467421d0a774aadabe6e4feeb54c, type: 3}
   interactablePrefabs:

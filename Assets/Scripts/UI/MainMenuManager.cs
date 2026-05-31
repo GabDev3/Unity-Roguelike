@@ -19,14 +19,27 @@ namespace UI
         
         [Tooltip("The credits panel")]
         public GameObject creditsPanel;
-        
+
+        [Tooltip("The class-selection panel (shown after PLAY)")]
+        public GameObject classSelectPanel;
+
+        [Tooltip("The controls panel")]
+        public GameObject controlsPanel;
+
         [Header("Buttons")]
         public Button playButton;
         public Button settingsButton;
         public Button creditsButton;
+        public Button controlsButton;
         public Button quitButton;
         public Button backFromSettingsButton;
         public Button backFromCreditsButton;
+        public Button backFromControlsButton;
+
+        [Header("Class Selection")]
+        public Button meleeButton;
+        public Button rangedButton;
+        public Button backFromClassButton;
         
         [Header("Settings UI")]
         public Slider masterVolumeSlider;
@@ -86,15 +99,30 @@ namespace UI
             
             if (creditsButton != null)
                 creditsButton.onClick.AddListener(OnCreditsClicked);
-            
+
+            if (controlsButton != null)
+                controlsButton.onClick.AddListener(OnControlsClicked);
+
             if (quitButton != null)
                 quitButton.onClick.AddListener(OnQuitClicked);
-            
+
             if (backFromSettingsButton != null)
                 backFromSettingsButton.onClick.AddListener(OnBackFromSettingsClicked);
-            
+
             if (backFromCreditsButton != null)
                 backFromCreditsButton.onClick.AddListener(OnBackFromCreditsClicked);
+
+            if (backFromControlsButton != null)
+                backFromControlsButton.onClick.AddListener(ShowMainMenu);
+
+            if (meleeButton != null)
+                meleeButton.onClick.AddListener(() => OnClassChosen(Dungeon.PlayerClass.Melee));
+
+            if (rangedButton != null)
+                rangedButton.onClick.AddListener(() => OnClassChosen(Dungeon.PlayerClass.Ranged));
+
+            if (backFromClassButton != null)
+                backFromClassButton.onClick.AddListener(ShowMainMenu);
         }
         
         private void SetupSettingsListeners()
@@ -116,8 +144,23 @@ namespace UI
         
         public void OnPlayClicked()
         {
+            // Choose class before starting
+            ShowClassSelect();
+        }
+
+        private void OnClassChosen(Dungeon.PlayerClass chosenClass)
+        {
+            if (Dungeon.GameManager.Instance != null)
+            {
+                Dungeon.GameManager.Instance.SelectedClass = chosenClass;
+            }
+            StartGame();
+        }
+
+        private void StartGame()
+        {
             Debug.Log("Starting game...");
-            
+
             // Handle seed settings
             if (Dungeon.GameManager.Instance != null)
             {
@@ -148,6 +191,11 @@ namespace UI
         public void OnCreditsClicked()
         {
             ShowCredits();
+        }
+
+        public void OnControlsClicked()
+        {
+            ShowControls();
         }
         
         public void OnQuitClicked()
@@ -233,20 +281,44 @@ namespace UI
             SetPanelActive(mainMenuPanel, true);
             SetPanelActive(settingsPanel, false);
             SetPanelActive(creditsPanel, false);
+            SetPanelActive(classSelectPanel, false);
+            SetPanelActive(controlsPanel, false);
         }
-        
+
         private void ShowSettings()
         {
             SetPanelActive(mainMenuPanel, false);
             SetPanelActive(settingsPanel, true);
             SetPanelActive(creditsPanel, false);
+            SetPanelActive(classSelectPanel, false);
+            SetPanelActive(controlsPanel, false);
         }
-        
+
         private void ShowCredits()
         {
             SetPanelActive(mainMenuPanel, false);
             SetPanelActive(settingsPanel, false);
             SetPanelActive(creditsPanel, true);
+            SetPanelActive(classSelectPanel, false);
+            SetPanelActive(controlsPanel, false);
+        }
+
+        private void ShowClassSelect()
+        {
+            SetPanelActive(mainMenuPanel, false);
+            SetPanelActive(settingsPanel, false);
+            SetPanelActive(creditsPanel, false);
+            SetPanelActive(classSelectPanel, true);
+            SetPanelActive(controlsPanel, false);
+        }
+
+        private void ShowControls()
+        {
+            SetPanelActive(mainMenuPanel, false);
+            SetPanelActive(settingsPanel, false);
+            SetPanelActive(creditsPanel, false);
+            SetPanelActive(classSelectPanel, false);
+            SetPanelActive(controlsPanel, true);
         }
         
         private void SetPanelActive(GameObject panel, bool active)
